@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Quote Generator</title>
+  </head>
+  <body>
+    <div class="container" id="quote-container">
+      <div class="quote" id="quote-text"></div>
+      <select id="category-selector">
+        <option value="inspire">INSPIRE</option>
+        <option value="management">MANAGEMENT</option>
+        <option value="science">SCIENCE</option>
+        <option value="health">HEALTH</option>
+        <option value="engineering">ENGINEERING</option>
+      </select>
+
+      <button onclick="getRandomQuote()">Random</button>
+      <button onclick="prevQuote()">Previous</button>
+      <button onclick="nextQuote()">Next</button>
+      <input
+        type="range"
+        id="font-size-slider"
+        min="12"
+        max="24"
+        step="2"
+        value="18"
+        oninput="changeFontSize()"
+      />
+      <label for="dark-mode-switch">Dark Mode:</label>
+      <input type="checkbox" id="dark-mode-switch" onclick="toggleDarkMode()" />
+    </div>
+
+    <script>
+      const quotes = {
+        inspire: [
+          "The only limit to our realization of tomorrow will be our doubts of today.",
+          "Believe you can and you're halfway there.",
+          "We cannot solve problems with the kind of thinking we employed when we came up with them.",
+          "Learn as if you will live forever, live like you will die tomorrow.",
+          "Stay away from those people who try to disparage your ambitions. Small minds will always do that, but great minds will give you a feeling that you can become great too.",
+          "When you give joy to other people, you get more joy in return. You should give a good thought to the happiness that you can give out",
+          "When you change your thoughts, remember to also change your world",
+        ],
+
+        management: [
+          "Don't tell people how to do things, tell them what to do and let them surprise you with their results.",
+          "The best way to predict the future is to create it.",
+          "Good management consists in showing average people how to do the work of superior people",
+          "Forget about the fast lane. If you really want to fly, just harness your power to your passion",
+          "Leadership is the art of giving people a platform for spreading ideas that work",
+          "The first rule of management is delegation. Don't try and do everything yourself because you can't",
+        ],
+
+        science: [
+          "Science is a way of thinking much more than it is a body of knowledge.",
+          "The important achievement of science is to find the right balance between imagination and evidence.",
+          "In every work of genius, we recognize our own rejected thoughts.",
+          "Science knows no country, because knowledge belongs to humanity, and is the torch which illuminates the world.",
+          "The greatest enemy of knowledge is not ignorance, it is the illusion of knowledge.",
+          "The most exciting phrase to hear in science, the one that heralds new discoveries, is not 'Eureka!' but 'That's funny...'",
+        ],
+
+        health: [
+          "Your body hears everything your mind says. Stay positive.",
+          "Good health is not something we can buy. However, it can be an extremely valuable savings account.",
+          "The groundwork of all happiness is health.",
+          "Health is a state of body, wellness is a state of being.",
+          "To keep the body in good health is a duty, otherwise, we shall not be able to keep our mind strong and clear.",
+          "Wellness is the complete integration of body, mind, and spirit - the realization that everything we do, think, feel, and believe has an effect on our state of well-being.",
+          "The first wealth is health.",
+        ],
+
+        engineering: [
+          "Why do programmers prefer dark mode? Because light attracts bugs!",
+          "The best thing about a boolean is even if you are wrong, you are only off by a bit.",
+          "I asked the computer if it believes in God, but it couldn’t answer because it lost its faith in 'if statements.'",
+          "Why did the programmer quit his job? He didn't get arrays!",
+          "Why do Java developers wear glasses? Because they don't see sharp.",
+          "The best code is no code at all. Every developer, ever.",
+        ],
+      };
+
+      let currentCategory = "inspire";
+      let currentQuoteIndex = 0;
+
+      function displayQuote() {
+        const quoteText = document.getElementById("quote-text");
+        quoteText.textContent = quotes[currentCategory][currentQuoteIndex];
+      }
+
+      function getRandomQuote() {
+        const categoryQuotes = quotes[currentCategory];
+        const randomIndex = Math.floor(Math.random() * categoryQuotes.length);
+        currentQuoteIndex = randomIndex;
+        displayQuote();
+      }
+
+      function nextQuote() {
+        currentQuoteIndex =
+          (currentQuoteIndex + 1) % quotes[currentCategory].length;
+        displayQuote();
+      }
+
+      function prevQuote() {
+        currentQuoteIndex =
+          (currentQuoteIndex - 1 + quotes[currentCategory].length) %
+          quotes[currentCategory].length;
+        displayQuote();
+      }
+
+      function changeFontSize() {
+        const fontSize = document.getElementById("font-size-slider").value;
+        document.getElementById("quote-text").style.fontSize = fontSize + "px";
+      }
+
+      function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+      }
+
+      document
+        .getElementById("category-selector")
+        .addEventListener("change", function () {
+          currentCategory = this.value;
+          getRandomQuote();
+        });
+
+      window.onload = getRandomQuote;
+    </script>
+  </body>
+</html>
