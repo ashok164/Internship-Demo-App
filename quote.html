@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="style.css" />
     <title>Quote Generator</title>
   </head>
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/obelixpro-6');
+</style>
+
   <body>
     <div class="container" id="quote-container">
       <div class="quote" id="quote-text"></div>
@@ -18,8 +22,8 @@
       </select>
 
       <button onclick="getRandomQuote()">Random</button>
-      <button onclick="prevQuote()">Previous</button>
-      <button onclick="nextQuote()">Next</button>
+      <button onclick="prevQuote()">← Previous</button>
+      <button onclick="nextQuote()">Next →</button>
       <input
         type="range"
         id="font-size-slider"
